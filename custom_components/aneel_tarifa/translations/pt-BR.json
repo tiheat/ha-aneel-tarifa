@@ -41,10 +41,33 @@
   },
   "entity": {
     "sensor": {
-      "preco_final": { "name": "Preço final" },
-      "tarifa_sem_impostos": { "name": "Tarifa sem impostos" },
-      "bandeira": { "name": "Bandeira tarifária" },
-      "adicional_bandeira": { "name": "Adicional da bandeira" }
+      "preco_final": {
+        "name": "Preço final"
+      },
+      "tarifa_sem_impostos": {
+        "name": "Tarifa sem impostos"
+      },
+      "bandeira": {
+        "name": "Bandeira tarifária",
+        "state": {
+          "verde": "Verde",
+          "amarela": "Amarela",
+          "vermelha_p1": "Vermelha patamar 1",
+          "vermelha_p2": "Vermelha patamar 2",
+          "escassez_hidrica": "Escassez hídrica"
+        },
+        "state_attributes": {
+          "nome": {
+            "name": "Nome na ANEEL"
+          },
+          "competencia": {
+            "name": "Competência"
+          }
+        }
+      },
+      "adicional_bandeira": {
+        "name": "Adicional da bandeira"
+      }
     }
   }
 }

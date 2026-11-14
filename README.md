@@ -15,12 +15,28 @@ Os dados são consultados a cada 6 horas. Reajustes anuais e novas bandeiras ent
 
 | Sensor | Unidade | Descrição |
 |---|---|---|
-| Preço final | BRL/kWh | `(tarifa + adicional da bandeira) ÷ (1 − ICMS − PIS − COFINS)` (impostos "por dentro") |
+| Preço final | BRL/kWh | `(tarifa + adicional da bandeira) ÷ (1 − ICMS − PIS − COFINS)` (impostos "por dentro"); atributos com as alíquotas |
 | Tarifa sem impostos | BRL/kWh | TUSD + TE vigentes; atributos com TUSD, TE, resolução e vigência |
-| Bandeira tarifária | — | Verde, Amarela, Vermelha P1/P2…; atributo `competencia` |
+| Bandeira tarifária | — | Estado entre `verde`, `amarela`, `vermelha_p1`, `vermelha_p2` e `escassez_hidrica` (exibidos traduzidos); atributos `nome` (como a ANEEL publica) e `competencia` |
 | Adicional da bandeira | BRL/kWh | Acréscimo da bandeira do mês |
 
+Os sensores em BRL/kWh guardam estatísticas de longo prazo, então o histórico de preço fica disponível além da
+retenção do recorder. A bandeira é um sensor de opções fixas: em automações, use os estados acima, por exemplo
+`{{ is_state('sensor.tarifa_coelba_bandeira_tarifaria', 'vermelha_p2') }}`.
+
 No painel de Energia, use **Preço final** como "entidade com o preço atual" da rede (importação e, se quiser, injeção).
+
+## Configuração
+
+Ao adicionar a integração, informe:
+
+- **Distribuidora**: lista das distribuidoras com tarifa B1 residencial nos dados da ANEEL (a integração recusa a
+  configuração se não houver tarifa vigente).
+- **Subclasse residencial**: Residencial, Baixa Renda ou faixas da Tarifa/Desconto Social.
+- **ICMS, PIS e COFINS** (%): conforme a fatura.
+
+PIS e COFINS mudam todo mês: atualize em *Configurações → Dispositivos e serviços → Tarifa ANEEL → Configurar*; a
+integração recarrega sozinha. Para outra distribuidora ou subclasse, adicione uma nova entrada.
 
 ## Instalação
 
@@ -73,8 +89,15 @@ Em seguida cria a tag `vX.Y.Z` e a release no GitHub com as mesmas notas e o `an
 
 ## Desenvolvimento
 
+As ferramentas (Python, ruff, pytest) são instaladas pelo [mise](https://mise.jdx.dev/) a partir do `mise.toml`.
+Os testes cobrem o módulo puro `aneel.py` (sem dependência do Home Assistant); a CI roda também o `hassfest`.
+
 ```bash
 mise run lint
+```
+
+```bash
+mise run format
 ```
 
 ```bash

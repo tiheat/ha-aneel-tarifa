@@ -1,7 +1,7 @@
 from datetime import date
 
 import pytest
-from aneel import bandeira_vigente, parse_brl, preco_final, tarifa_vigente
+from aneel import bandeira_chave, bandeira_vigente, parse_brl, preco_final, tarifa_vigente
 
 BANDEIRAS = [
     {"DatCompetencia": "2026-12-01", "NomBandeiraAcionada": "Amarela", "VlrAdicionalBandeira": "18,85"},
@@ -46,6 +46,25 @@ def test_bandeira_falls_back_to_latest_past_month():
 
 def test_bandeira_converts_mwh_to_kwh():
     assert bandeira_vigente(BANDEIRAS, date(2026, 12, 3)).adicional_rs_kwh == 0.01885
+
+
+@pytest.mark.parametrize(
+    ("nome", "chave"),
+    [
+        ("Verde", "verde"),
+        ("Amarela", "amarela"),
+        ("Vermelha P1", "vermelha_p1"),
+        ("Vermelha  P2 ", "vermelha_p2"),
+        ("Escassez Hídrica", "escassez_hidrica"),
+        ("Roxa", None),
+    ],
+)
+def test_bandeira_chave(nome, chave):
+    assert bandeira_chave(nome) == chave
+
+
+def test_bandeira_vigente_exposes_key():
+    assert bandeira_vigente(BANDEIRAS, date(2026, 10, 9)).chave == "vermelha_p1"
 
 
 def test_bandeira_empty():
