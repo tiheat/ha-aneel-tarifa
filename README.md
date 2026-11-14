@@ -27,7 +27,16 @@ No painel de Energia, use **Preço final** como "entidade com o preço atual" da
 Requer Home Assistant 2025.8 ou superior. O ícone da integração (pasta `brand/`) aparece a partir do 2026.3;
 os SVGs de origem ficam em `assets/`.
 
-**Via SSH (este repositório):** com o host `ha` configurado no `~/.ssh/config`:
+**Via Marketplace (Home Assistant 2026.11+) ou HACS (recomendado):**
+
+1. Em *Configurações → Marketplace* (ou HACS, em versões anteriores), abra *Repositórios customizados* e adicione
+   `https://github.com/tiheat/ha-aneel-tarifa` com a categoria *Integração*.
+2. Instale **Tarifa ANEEL** e reinicie o Home Assistant.
+3. Em *Configurações → Dispositivos e serviços → Adicionar integração*, procure **Tarifa ANEEL**.
+
+Novas versões aparecem como atualização no próprio Home Assistant, a partir das releases deste repositório.
+
+**Via SSH (desenvolvimento):** com o host `ha` configurado no `~/.ssh/config`, copie o código local e reinicie:
 
 ```bash
 mise run deploy
@@ -36,11 +45,6 @@ mise run deploy
 ```bash
 mise run restart
 ```
-
-Depois, em *Configurações → Dispositivos e serviços → Adicionar integração*, procure **Tarifa ANEEL**.
-
-**Via HACS:** adicione este repositório como repositório customizado do tipo *Integração*
-(repositórios privados exigem token do GitHub no HACS).
 
 ## Limitações
 
