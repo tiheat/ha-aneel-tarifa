@@ -1,12 +1,14 @@
 {
   "domain": "aneel_tarifa",
   "name": "Tarifa ANEEL",
-  "codeowners": ["@tiheat"],
+  "codeowners": [
+    "@tiheat"
+  ],
   "config_flow": true,
   "documentation": "https://github.com/tiheat/ha-aneel-tarifa",
   "integration_type": "service",
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/tiheat/ha-aneel-tarifa/issues",
   "requirements": [],
-  "version": "0.1.0"
+  "version": "1.0.0"
 }
