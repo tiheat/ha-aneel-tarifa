@@ -48,6 +48,16 @@ Depois, em *Configurações → Dispositivos e serviços → Adicionar integraç
   geração distribuída (Lei 14.300); usar o mesmo preço para a injeção superestima o crédito.
 - Se a ANEEL trocar os identificadores dos conjuntos de dados, atualize `RESOURCE_*` em `const.py`.
 
+## Versionamento e releases
+
+As versões seguem [SemVer](https://semver.org/lang/pt-BR/) e são geradas pelo
+[release-please](https://github.com/googleapis/release-please) a partir das mensagens de commit
+(`feat:` → minor, `fix:` → patch, `feat!:`/`BREAKING CHANGE` → major):
+
+1. Cada merge na `main` abre ou atualiza um PR de release com a próxima versão, o `CHANGELOG.md` e o
+   `version` do `manifest.json`.
+2. O merge desse PR cria a tag `vX.Y.Z` e a release no GitHub com `aneel_tarifa.zip` anexado (usado pelo HACS).
+
 ## Desenvolvimento
 
 ```bash
