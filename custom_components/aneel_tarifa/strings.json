@@ -1,0 +1,50 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Tarifa ANEEL",
+        "description": "Choose your distributor and enter the taxes shown on your electricity bill.",
+        "data": {
+          "distribuidora": "Distributor",
+          "subclasse": "Residential subclass",
+          "icms": "ICMS",
+          "pis": "PIS",
+          "cofins": "COFINS"
+        }
+      }
+    },
+    "error": {
+      "cannot_connect": "Could not reach the ANEEL open data API.",
+      "no_tariff": "No tariff in force was found for this distributor and subclass.",
+      "invalid_taxes": "The sum of taxes must be lower than 100%."
+    },
+    "abort": {
+      "already_configured": "This distributor and subclass are already configured.",
+      "cannot_connect": "Could not reach the ANEEL open data API."
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Taxes",
+        "description": "Update the taxes from your latest bill (PIS and COFINS change monthly).",
+        "data": {
+          "icms": "ICMS",
+          "pis": "PIS",
+          "cofins": "COFINS"
+        }
+      }
+    },
+    "error": {
+      "invalid_taxes": "The sum of taxes must be lower than 100%."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "preco_final": { "name": "Final price" },
+      "tarifa_sem_impostos": { "name": "Tariff without taxes" },
+      "bandeira": { "name": "Tariff flag" },
+      "adicional_bandeira": { "name": "Tariff flag surcharge" }
+    }
+  }
+}
