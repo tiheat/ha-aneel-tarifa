@@ -24,7 +24,8 @@ No painel de Energia, use **Preço final** como "entidade com o preço atual" da
 
 ## Instalação
 
-Requer Home Assistant 2025.8 ou superior.
+Requer Home Assistant 2025.8 ou superior. O ícone da integração (pasta `brand/`) aparece a partir do 2026.3;
+os SVGs de origem ficam em `assets/`.
 
 **Via SSH (este repositório):** com o host `ha` configurado no `~/.ssh/config`:
 
