@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.0](https://github.com/tiheat/ha-aneel-tarifa/compare/v1.1.0...v1.2.0) (2026-11-14)
+
+### Features
+
+* add long-term statistics, enum flag sensor and entity icons ([8316cb4](https://github.com/tiheat/ha-aneel-tarifa/commit/8316cb4f2f6f316fcab0ae47269c95682e163a34))
+
 ## [1.1.0](https://github.com/tiheat/ha-aneel-tarifa/compare/v1.0.0...v1.1.0) (2026-11-14)
 
 
