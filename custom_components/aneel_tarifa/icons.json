@@ -1,0 +1,16 @@
+{
+  "entity": {
+    "sensor": {
+      "preco_final": { "default": "mdi:cash-multiple" },
+      "tarifa_sem_impostos": { "default": "mdi:cash" },
+      "adicional_bandeira": { "default": "mdi:flag-plus" },
+      "bandeira": {
+        "default": "mdi:flag-variant",
+        "state": {
+          "verde": "mdi:flag-variant-outline",
+          "escassez_hidrica": "mdi:water-alert"
+        }
+      }
+    }
+  }
+}

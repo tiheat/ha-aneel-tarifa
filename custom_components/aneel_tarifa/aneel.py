@@ -2,9 +2,21 @@
 
 from __future__ import annotations
 
+import unicodedata
 from dataclasses import dataclass
 from datetime import date
 from typing import Any
+
+# Normalized keys for the flag names published by ANEEL ("Verde", "Amarela", "Vermelha P1",
+# "Vermelha P2", "Escassez Hídrica"); used as the states of the enum sensor.
+BANDEIRAS = ["verde", "amarela", "vermelha_p1", "vermelha_p2", "escassez_hidrica"]
+
+
+def bandeira_chave(nome: str) -> str | None:
+    """Map an ANEEL flag name to its normalized key, or None when it is unknown."""
+    ascii_name = unicodedata.normalize("NFKD", nome).encode("ascii", "ignore").decode()
+    key = "_".join(ascii_name.lower().split())
+    return key if key in BANDEIRAS else None
 
 
 @dataclass(frozen=True)
@@ -14,6 +26,11 @@ class Bandeira:
     nome: str
     adicional_rs_kwh: float
     competencia: str
+
+    @property
+    def chave(self) -> str | None:
+        """Normalized key of the flag (see BANDEIRAS)."""
+        return bandeira_chave(self.nome)
 
 
 @dataclass(frozen=True)

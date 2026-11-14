@@ -6,13 +6,18 @@ from collections.abc import Callable
 from dataclasses import dataclass
 from typing import Any
 
-from homeassistant.components.sensor import SensorEntity, SensorEntityDescription
+from homeassistant.components.sensor import (
+    SensorDeviceClass,
+    SensorEntity,
+    SensorEntityDescription,
+    SensorStateClass,
+)
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.device_registry import DeviceEntryType, DeviceInfo
 from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .aneel import preco_final
+from .aneel import BANDEIRAS, preco_final
 from .const import CONF_COFINS, CONF_DISTRIBUIDORA, CONF_ICMS, CONF_PIS, CONF_SUBCLASSE, DOMAIN
 from .coordinator import AneelConfigEntry, AneelCoordinator, AneelData
 
@@ -39,8 +44,8 @@ SENSORS: tuple[AneelSensorDescription, ...] = (
     AneelSensorDescription(
         key="preco_final",
         translation_key="preco_final",
-        icon="mdi:cash-multiple",
         native_unit_of_measurement=PRICE_UNIT,
+        state_class=SensorStateClass.MEASUREMENT,
         suggested_display_precision=5,
         value_fn=lambda d, o: preco_final(d.tarifa.total_rs_kwh, _adicional(d), _impostos(o)),
         attrs_fn=lambda d, o: {
@@ -53,8 +58,8 @@ SENSORS: tuple[AneelSensorDescription, ...] = (
     AneelSensorDescription(
         key="tarifa_sem_impostos",
         translation_key="tarifa_sem_impostos",
-        icon="mdi:cash",
         native_unit_of_measurement=PRICE_UNIT,
+        state_class=SensorStateClass.MEASUREMENT,
         suggested_display_precision=5,
         value_fn=lambda d, o: d.tarifa.total_rs_kwh,
         attrs_fn=lambda d, o: {
@@ -68,15 +73,16 @@ SENSORS: tuple[AneelSensorDescription, ...] = (
     AneelSensorDescription(
         key="bandeira",
         translation_key="bandeira",
-        icon="mdi:flag-variant",
-        value_fn=lambda d, o: d.bandeira.nome if d.bandeira else None,
-        attrs_fn=lambda d, o: {"competencia": d.bandeira.competencia} if d.bandeira else {},
+        device_class=SensorDeviceClass.ENUM,
+        options=BANDEIRAS,
+        value_fn=lambda d, o: d.bandeira.chave if d.bandeira else None,
+        attrs_fn=lambda d, o: {"nome": d.bandeira.nome, "competencia": d.bandeira.competencia} if d.bandeira else {},
     ),
     AneelSensorDescription(
         key="adicional_bandeira",
         translation_key="adicional_bandeira",
-        icon="mdi:flag-plus",
         native_unit_of_measurement=PRICE_UNIT,
+        state_class=SensorStateClass.MEASUREMENT,
         suggested_display_precision=5,
         value_fn=lambda d, o: _adicional(d),
     ),

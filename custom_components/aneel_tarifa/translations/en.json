@@ -41,10 +41,33 @@
   },
   "entity": {
     "sensor": {
-      "preco_final": { "name": "Final price" },
-      "tarifa_sem_impostos": { "name": "Tariff without taxes" },
-      "bandeira": { "name": "Tariff flag" },
-      "adicional_bandeira": { "name": "Tariff flag surcharge" }
+      "preco_final": {
+        "name": "Final price"
+      },
+      "tarifa_sem_impostos": {
+        "name": "Tariff without taxes"
+      },
+      "bandeira": {
+        "name": "Tariff flag",
+        "state": {
+          "verde": "Green",
+          "amarela": "Yellow",
+          "vermelha_p1": "Red - level 1",
+          "vermelha_p2": "Red - level 2",
+          "escassez_hidrica": "Water scarcity"
+        },
+        "state_attributes": {
+          "nome": {
+            "name": "ANEEL name"
+          },
+          "competencia": {
+            "name": "Reference month"
+          }
+        }
+      },
+      "adicional_bandeira": {
+        "name": "Tariff flag surcharge"
+      }
     }
   }
 }
