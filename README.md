@@ -55,13 +55,21 @@ mise run restart
 
 ## Versionamento e releases
 
-As versões seguem [SemVer](https://semver.org/lang/pt-BR/) e são geradas pelo
-[release-please](https://github.com/googleapis/release-please) a partir das mensagens de commit
-(`feat:` → minor, `fix:` → patch, `feat!:`/`BREAKING CHANGE` → major):
+As versões seguem [SemVer](https://semver.org/lang/pt-BR/) e são geradas automaticamente pelo
+[semantic-release](https://semantic-release.gitbook.io/) a cada push ou merge na `main` que passa na CI, a partir
+dos [commits convencionais](https://www.conventionalcommits.org/) desde a última tag:
 
-1. Cada merge na `main` abre ou atualiza um PR de release com a próxima versão, o `CHANGELOG.md` e o
-   `version` do `manifest.json`.
-2. O merge desse PR cria a tag `vX.Y.Z` e a release no GitHub com `aneel_tarifa.zip` anexado (usado pelo HACS).
+| Commit | Versão |
+|---|---|
+| `fix: ...`, `perf: ...`, `refactor: ...`, `build: ...` | patch (1.1.**1**) |
+| `feat: ...` | minor (1.**2**.0) |
+| `BREAKING CHANGE:` no rodapé | major (**2**.0.0) |
+| `docs:`, `chore:`, `test:`, `ci:`, `style:` | sem nova versão |
+
+O job `release` atualiza a versão no `manifest.json` e no `pyproject.toml`, acrescenta as notas da versão no
+topo do [`CHANGELOG.md`](CHANGELOG.md) e commita os três arquivos direto na `main` (`chore: release X.Y.Z`).
+Em seguida cria a tag `vX.Y.Z` e a release no GitHub com as mesmas notas e o `aneel_tarifa.zip` anexado
+(usado pelo Marketplace/HACS para instalar e atualizar).
 
 ## Desenvolvimento
 
